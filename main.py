@@ -1,17 +1,17 @@
-welcome = "***WELCOME TO PHYSIOSTATS***\n\nChoose one of the following:\n\n"
-menu = "1. new\n2. load\n3. delete\n4. help\n5. exit\n\n"
+from flows.statsFlow import StatsFlow
 
-def new():
-    pass
+welcome = "***WELCOME TO PHYSIOSTATS***\n\nChoose one of the following:\n"
+menu = "\n1. new\n2. load\n3. delete\n4. help\n5. exit\n\n"
 
 def processMenu():
     print("Inside menu")
 
 def main():
+    flow = StatsFlow()
     while True:
         entry = input("PhysioStats> ")
         if entry == "new" or entry == "1":
-            new()
+            flow.new()
         elif entry == "load" or entry == "2":
             pass
         elif entry == "delete" or entry == "3":
