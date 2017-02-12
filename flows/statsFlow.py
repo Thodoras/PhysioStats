@@ -17,4 +17,5 @@ class StatsFlow:
             print("\n")
             return
         self.repository.saveFile(fileName)
+        self.repository.save(fileName)
         print("\nCongratulations a new file named " + fileName + ".csv has been created.\n")
