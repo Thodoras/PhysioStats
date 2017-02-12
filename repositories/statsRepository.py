@@ -11,12 +11,12 @@ class StatsRepository:
         with open(self._fullPath(StatsRepository.DATA + StatsRepository.INDEX), 'r') as f:
             reader = csv.reader(f)
             for row in reader:
-                if row[0] == fileName:
+                if len(row) > 0 and row[0] == fileName:
                     return True
         return False
 
     def saveFile(self, fileName):
-        with open(self._fullPath(StatsRepository.DATA + StatsRepository.INDEX), 'w') as f:
+        with open(self._fullPath(StatsRepository.DATA + StatsRepository.INDEX), 'a') as f:
             writer = csv.writer(f)
             writer.writerow([fileName])
 
