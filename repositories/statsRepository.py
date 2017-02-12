@@ -7,15 +7,23 @@ class StatsRepository:
     DATA = "../data"
     INDEX = "/index.csv"
 
-    def existsFile(self, fileName):
+    def getAll(self):
         with open(self._fullPath(StatsRepository.INDEX), 'r') as f:
+            fileNames = []
+            reader = csv.reader(f)
+            for row in reader:
+                fileNames.append(row[0])
+            return fileNames
+
+    def existsFile(self, fileName):
+        with open(self._fullPath(StatsRepository.INDEX), 'a+') as f:
             reader = csv.reader(f)
             for row in reader:
                 if len(row) > 0 and row[0] == fileName:
                     return True
         return False
 
-    def saveFile(self, fileName):
+    def addFile(self, fileName):
         with open(self._fullPath(StatsRepository.INDEX), 'a+') as f:
             writer = csv.writer(f)
             writer.writerow([fileName])
