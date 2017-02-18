@@ -16,7 +16,7 @@ class StatsRepository:
             return fileNames
 
     def existsFile(self, fileName):
-        with open(self._fullPath(StatsRepository.INDEX), 'a+') as f:
+        with open(self._fullPath(StatsRepository.INDEX), 'r') as f:
             reader = csv.reader(f)
             for row in reader:
                 if len(row) > 0 and row[0] == fileName:
