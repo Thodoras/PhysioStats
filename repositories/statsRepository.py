@@ -8,7 +8,7 @@ class StatsRepository:
     INDEX = "/index.csv"
 
     def getAll(self):
-        with open(self._fullPath(StatsRepository.INDEX), 'r') as f:
+        with open(self._fullPath(self.INDEX), 'r') as f:
             fileNames = []
             reader = csv.reader(f)
             for row in reader:
@@ -16,7 +16,7 @@ class StatsRepository:
             return fileNames
 
     def existsFile(self, fileName):
-        with open(self._fullPath(StatsRepository.INDEX), 'r') as f:
+        with open(self._fullPath(self.INDEX), 'r') as f:
             reader = csv.reader(f)
             for row in reader:
                 if len(row) > 0 and row[0] == fileName:
@@ -24,16 +24,21 @@ class StatsRepository:
         return False
 
     def addFile(self, fileName):
-        with open(self._fullPath(StatsRepository.INDEX), 'a+') as f:
+        with open(self._fullPath(self.INDEX), 'a+') as f:
             writer = csv.writer(f)
             writer.writerow([fileName])
+
+    def add(self, data, fileName):
+        with open(self._fullPath('/' + fileName + '.csv'), 'a') as f:
+            writer = csv.writer(f)
+            writer.writerow(data)
 
     def save(self, fileName, modelList = []):
         if modelList == []:
             self._initializeFile(fileName)
 
     def _fullPath(self, relativePath):
-        return os.path.join(StatsRepository.DIR, StatsRepository.DATA + relativePath)
+        return os.path.join(self.DIR, self.DATA + relativePath)
 
     def _initializeFile(self, fileName):
         with open(self._fullPath("/" + fileName + ".csv"), 'a+') as f:
