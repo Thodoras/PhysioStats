@@ -1,24 +1,28 @@
 from flows.statsFlow import StatsFlow
+from flows.indexFlow import IndexFlow
 
 WELCOME = "***WELCOME TO PHYSIOSTATS***\n"
 MENU = "\nMAIN MENU\n\n1. new\n2. load\n3. delete\n4. menu\n5. exit\n\n"
 FILE_MENU = "\n1. show all rows\n2. show specific row\n3. add\n4. update row\n5. delete row\n6. menu\n7. back\n\n"
 
-def load(flow):
+
+def load(index_flow):
     print("\nInsert file name or press 's' to show available files or 'b' to go back to main menu\n")
     while True:
         fileName = input("\nFile name: ")
         if fileName == 'b':
             return
         elif fileName == 's':
-            flow.index()
+            index_flow.index()
         elif fileName != '':
-            if flow.existsFileName(fileName):
-                processMenu(flow, fileName)
+            if index_flow.exists(fileName):
+                processMenu(index_flow, fileName)
                 break
 
-def processMenu(flow, fileName):
+
+def processMenu(index_flow, fileName):
     print(FILE_MENU)
+    stats_flow = StatsFlow()
     while True:
         entry = input("PhysioStats\\" + fileName + "> ")
         if entry == "show all rows" or entry == "1":
@@ -26,7 +30,7 @@ def processMenu(flow, fileName):
         elif entry == "show specific row" or entry == "2":
             pass
         elif entry == "add" or entry == "3":
-            flow.add(fileName)
+            stats_flow.new(fileName)
         elif entry == "update row" or entry == "4":
             print(FILE_MENU)
         elif entry == "delete row" or entry == "5":
@@ -37,25 +41,25 @@ def processMenu(flow, fileName):
             print(MENU)
             break
         else:
-            print("Invalid input. Press 'help' to print menu options.")
+            print("Invalid input. Press 'menu' to print menu options.")
 
 def main():
-    flow = StatsFlow()
+    index_flow = IndexFlow()
     while True:
         entry = input("PhysioStats> ")
         if entry == "new" or entry == "1":
-            flow.new()
+            index_flow.new()
         elif entry == "load" or entry == "2":
-            load(flow)
+            load(index_flow)
         elif entry == "delete" or entry == "3":
             pass
-        elif entry == "help" or entry == "4":
+        elif entry == "menu" or entry == "4":
             print(MENU)
         elif entry == "exit" or entry == "5":
             print("\nBye!\n")
             break
         else:
-            print("Invalid input. Press 'help' to print menu options.")
+            print("Invalid input. Press 'menu' to print menu options.")
 
 print(WELCOME)
 print(MENU)
